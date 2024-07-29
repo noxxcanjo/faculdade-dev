@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-warning">
+    <div class="container-fluid">
+        <h1>Catálogo de Receitas</h1>
+        <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+    </div>
+
+    <script>
+        const receitas = [
+            // Exemplo de estrutura JSON
+            {titulo: 'Receita 1', imagem: 'imagem1.png', preparo: 'Modo de preparo 1', ingredientes: ['Ingrediente 1', 'Ingrediente 2']},
+            {titulo: 'Receita 2', imagem: 'imagem2.png', preparo: 'Modo de preparo 2', ingredientes: ['Ingrediente A', 'Ingrediente B']}
+        ];
+
+        const getListaIngredientes = (receita) => {
+            return `<ul>${receita.ingredientes.map(ing => `<li>${ing}</li>`).join('')}</ul>`;
+        };
+
+        const getCard = (receita) => {
+            return `
+                <div class="card" style="width: 250px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            ${receita.preparo}
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const preencheCatalogo = () => {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            pnlCatalogo.innerHTML = receitas.map(getCard).join('');
+        };
+
+        window.onload = preencheCatalogo;
+    </script>
+</body>
+</html>

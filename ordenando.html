@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenando com JavaScript</title>
+    <script src="ordenando.js" defer></script>
+</head>
+<body>
+    <input type="number" id="valor" placeholder="Digite um valor">
+    <button onclick="add()">Adicionar</button>
+    <select id="algoritmo">
+        <option value="bubble_sort">Bubble Sort</option>
+        <option value="selection_sort">Selection Sort</option>
+        <option value="quick_sort">Quick Sort</option>
+    </select>
+    <button onclick="ordenar()">Ordenar</button>
+    <button onclick="misturar()">Misturar</button>
+    <ul id="valores"></ul>
+
+    <script>
+        const add = () => {
+            const valor = document.getElementById('valor').value;
+            const lista = document.getElementById('valores');
+            const node = document.createElement('li');
+            node.textContent = valor;
+            lista.appendChild(node);
+            document.getElementById('valor').value = '';
+        };
+
+        const ordenar = () => {
+            const lista = document.getElementById('valores');
+            const algoritmo = document.getElementById('algoritmo').value;
+            const valores = Array.from(lista.children).map(item => parseInt(item.innerHTML));
+            
+            if (algoritmo === 'bubble_sort') {
+                bubble_sort(valores);
+            } else if (algoritmo === 'selection_sort') {
+                selection_sort(valores);
+            } else if (algoritmo === 'quick_sort') {
+                quick_sort(valores, 0, valores.length - 1);
+            }
+
+            lista.innerHTML = valores.map(value => `<li>${value}</li>`).join('');
+        };
+
+        const misturar = () => {
+            const lista = document.getElementById('valores');
+            const valores = Array.from(lista.children).map(item => parseInt(item.innerHTML));
+            shuffle(valores, valores.length);
+            lista.innerHTML = valores.map(value => `<li>${value}</li>`).join('');
+        };
+    </script>
+</body>
+</html>
